@@ -11,6 +11,16 @@ import requests
 import pickle
 import os
 
+class Dataset:
+    """
+    contains a set of data regarding a particular topic. self.data_num contains
+    the number of entries in each 'row' of the dataset.
+    """
+    def __init__(self, name = 'Default', data_num = 1, data = []):
+        self.name = name
+        self.data_num = data_num
+        self.data = data
+
 
 def get_data():
     """
