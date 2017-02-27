@@ -10,7 +10,7 @@ Visualize data from imf.org to create intersting infographic
 import requests
 import pickle
 import os
-
+import string
 
 class Dataset:
     """
@@ -89,12 +89,14 @@ class Option_bar:
         pass
 
 
-def get_data():
+def get_data(file_name = 'GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv'):
     """
     pulls data from web or, if it already is locally available, accesses
     the apropriate file
     """
-    # TODO
+    raw_data = []
+    f = open(file_name, 'r')
+    lines = f.readlines()
     pass
 
 
