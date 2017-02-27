@@ -12,6 +12,29 @@ import pickle
 import os
 
 
+class Dataset:
+    """
+    contains a set of data regarding a particular topic. self.data_num contains
+    the number of keys in the dataset.
+    """
+    def __init__(self, name = 'Default', data = {}):
+        self.name = name
+        self.data_num = len(data)
+        self.data = data
+
+
+class Location:
+    """
+    contains the information describing a country or locale, specifically the
+    information from imf.org, and the graphical description of the location
+    """
+    def __init__(self, name = 'Default', visual = None, info = Dataset()):
+        self.name = name
+        self.visual = visual
+        self.info = info
+
+
+
 class Map():
     """
     contains all locations, is used to access everything conveniently.
@@ -42,28 +65,6 @@ class Map():
         """
         # TODO
         pass
-
-
-class Location:
-    """
-    contains the information describing a country or locale, specifically the
-    information from imf.org, and the graphical description of the location
-    """
-    def __init__(self, name = 'Default', visual = None, info = Dataset()):
-        self.name = name
-        self.visual = visual
-        self.info = info
-
-
-class Dataset:
-    """
-    contains a set of data regarding a particular topic. self.data_num contains
-    the number of keys in the dataset.
-    """
-    def __init__(self, name = 'Default', data = {}):
-        self.name = name
-        self.data_num = len(data)
-        self.data = data
 
 
 class Option_bar:
