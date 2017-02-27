@@ -1,10 +1,9 @@
 """
-SoftDes Mini-project 4
-Interactive programing
+Software Design Spring 2017
+Mini Project 4: Interactive Programing
+Noah Rivkin & Gracey Wilson
 
-Noah Rivkin and Gracey Wilson
-
-Visualize data from imf.org to create intersting infographic
+Visualize data from imf.org to create intersting interactive infographic
 """
 
 import requests
