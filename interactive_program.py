@@ -10,6 +10,7 @@ import requests
 import pickle
 import os
 import string
+import plotly
 
 class Dataset:
     """
@@ -96,16 +97,26 @@ def get_data(file_name = 'GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv'
     raw_data = []
     f = open(file_name, 'r')
     lines = f.readlines()
-    pass
+    lines = lines[1:]  # cuts out the line with column titles
+    f.close
+    return lines
 
 
-def process_data(data):
+def process_data(raw_data):
     """
     takes data in the raw form and processes it into something we can
     understand and manipulate, divided into relevent sublists or dictionaries
     """
-    # TODO
-    pass
+    data = {}
+    for line in raw_data:
+        line = line.split(',')
+        key = line.pop(0)
+        key = key.strip(string.punctuation)
+        if key in data:
+            data[key].append(line)
+        else:
+            data[key] = [line]
+    return data
 
 
 def insert_data(Map, data):
@@ -129,3 +140,7 @@ def visualize(data, category, flag = None):
 
 import doctest
 # main and stuff goes here
+if __name__ == '__main__':
+    raw_data = get_data()
+    data = process_data(raw_data)
+    print(data['Pakistan']) # display for debugging
