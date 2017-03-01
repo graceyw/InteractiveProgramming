@@ -3,7 +3,14 @@ Software Design Spring 2017
 Mini Project 4: Interactive Programing
 Noah Rivkin & Gracey Wilson
 
-Visualize data from imf.org to create intersting interactive infographic
+Visualize data from imf.org to create interesting interactive infographic
+
+NOTE: REQUIRES PLOTLY PACKAGE
+to install plotly library run:
+
+$ sudo pip3 install plotly
+$ sudo pip3 install plotly --upgrade
+
 """
 
 import requests
