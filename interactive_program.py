@@ -41,7 +41,6 @@ class Location:
         self.info = info
 
 
-
 class Map():
     """
     contains all locations, is used to access everything conveniently.
@@ -117,7 +116,7 @@ def process_data(raw_data):
     data = {}
     for line in raw_data:
         line = line.split(',')
-        key = line.pop(0)
+        key = line.pop(0)                         # pop grabs one value from list
         key = key.strip(string.punctuation)
         if key in data:
             data[key].append(line)
@@ -126,7 +125,7 @@ def process_data(raw_data):
     return data
 
 
-def insert_data(Map, data):
+def insert_data(Map, data):                                     # GRACEY
     """
     takes processed data and inserts it into the Map object, multiple levels
     deep, identifying what data goes where by finding matching strings,
@@ -135,14 +134,13 @@ def insert_data(Map, data):
     pass
 
 
-def visualize(data, category, flag = None):
+def visualize(data, category, flag = None):                    # NOAH
     """
     takes the processed data and displays the part of the data that is
     in the requested category. Additional options are available with a flag
     """
     # TODO
     pass
-
 
 
 import doctest
