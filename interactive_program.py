@@ -69,15 +69,39 @@ class Map():
         -all     displays all data
         -v       displays only visual, no data
         -debug   displays information to help debug
+        the default is based on the option bar
         others to be added as needed
         """
-        # TODO
-        pass
+        # brings data up from inside locations, and uses country_code_dict to interpret names to locations
+        codes = []
+        names = []
+        for location in self.locations:
+            names.append(location.name)
+            if location.name in country_code_dict:
+                codes.append(country_code_dict[location.name])
+        if '-v' in flags:
+            return [ dict(
+                    type = 'choropleth',
+                    locations = codes, # uses ISO ALPHA-3 codes
+                    text = names,
+                    z = [21.71],
+                    colorscale = [[0,"rgb(5, 10, 172)"],[0.35,"rgb(40, 60, 190)"],[0.5,"rgb(70, 100, 245)"],\
+                        [0.6,"rgb(90, 120, 245)"],[0.7,"rgb(106, 137, 247)"],[1,"rgb(220, 220, 220)"]],
+                  ) ]
+        else:
+            return [ dict(
+                type = 'choropleth',
+                locations = codes, # uses ISO ALPHA-3 codes
+                text = names,
+                z = [21.71], # will be replaced by something from location.info
+                colorscale = [[0,"rgb(5, 10, 172)"],[0.35,"rgb(40, 60, 190)"],[0.5,"rgb(70, 100, 245)"],\
+                    [0.6,"rgb(90, 120, 245)"],[0.7,"rgb(106, 137, 247)"],[1,"rgb(220, 220, 220)"]],
+              ) ]
 
 
     def quit(self, event):
         """
-        closes map, and clears data if neccesary
+        closes map
         """
         # TODO
         pass
@@ -151,13 +175,15 @@ def visualize(data, category, flag = None):                    # NOAH
     takes the processed data and displays the part of the data that is
     in the requested category. Additional options are available with a flag
     """
-    # TODO
-    data = [ dict(
-            type = 'choropleth',
-          )]
-
-    display = Map()
-    return dict(data = data, layout = display.layout)
+    # globe = insert_data(globe, data) # inserts data into the map object
+    # currently using the -v flag because data is not yet inserted
+    # temporary for testing until insert data is written, only adds location
+    locations = []
+    for key in data:
+        location = Location(key)
+        locations.append(location)
+    globe = Map(locations)
+    return dict(data = globe.display(['-v']), layout = globe.layout)
     pass
 
 
@@ -182,5 +208,5 @@ if __name__ == '__main__':
     make_code_dict(country_codes)
     data = process_data(raw_data)
     print(data['Armenia, Republic of']) # display for debugging
-    fig = visualize(data, 'test')
-    # plotly.offline.plot(fig, validate=False, filename='GlobalGenderEqualityMapping.html')
+    fig = visualize(data, 'test') # should eventually go in map.display() method
+    plotly.offline.plot(fig, validate=False, filename='GlobalGenderEqualityMapping.html')
