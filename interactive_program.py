@@ -50,6 +50,16 @@ class Map():
     def __init__(self, locations = None):
         self.locations = locations
         self.optionbar = Option_bar(locations)
+        self.layout = dict(
+            title = 'Gender Equality Map',
+            geo = dict(
+                showframe = False,
+                showcoastlines = True,
+                projection = dict(
+                    type = 'Mercator'
+                )
+            )
+        )
 
 
     def display(self, flags=None):
@@ -115,7 +125,9 @@ def process_data(raw_data):
     """
     data = {}
     for line in raw_data:
+        line = line.replace(', ', '-;')
         line = line.split(',')
+        line[0] = line[0].replace('-;', ', ')
         key = line.pop(0)                         # pop grabs one value from list
         key = key.strip(string.punctuation)
         if key in data:
@@ -140,12 +152,35 @@ def visualize(data, category, flag = None):                    # NOAH
     in the requested category. Additional options are available with a flag
     """
     # TODO
+    data = [ dict(
+            type = 'choropleth',
+          )]
+
+    display = Map()
+    return dict(data = data, layout = display.layout)
     pass
+
+
+def make_code_dict(country_codes):
+    """
+    creates a dictionary mapping country names to their ISO ALPHA-3 codes
+    """
+    for line in country_codes:
+        line = line.replace(', ', '-;')
+        line = line.split(',')
+        line[0] = line[0].replace('-;', ', ')
+        if line[0] not in country_code_dict:
+            country_code_dict[line[0]] = line[2]
 
 
 import doctest
 # main and stuff goes here
 if __name__ == '__main__':
     raw_data = get_data()
+    country_codes = get_data('country_codes.csv')
+    country_code_dict = {}
+    make_code_dict(country_codes)
     data = process_data(raw_data)
-    print(data['Pakistan']) # display for debugging
+    print(data['Armenia, Republic of']) # display for debugging
+    fig = visualize(data, 'test')
+    # plotly.offline.plot(fig, validate=False, filename='GlobalGenderEqualityMapping.html')
