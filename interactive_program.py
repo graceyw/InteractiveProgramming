@@ -18,6 +18,11 @@ import pickle
 import os
 import string
 import plotly
+import pandas as pd
+import colorlover as cl
+
+from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+init_notebook_mode(connected=True)
 
 class Dataset:
     """
@@ -128,37 +133,40 @@ class Option_bar:
         # TODO
         pass
 
+data = pd.read_csv('./GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv')
+country_code_data = pd.read_csv('./country_codes.csv')
+data = country_code_data.merge(data, left_on='English short name lower case', right_on="Country Name")
 
-def get_data(file_name = 'GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv'):
-    """
-    pulls data from web or, if it already is locally available, accesses
-    the apropriate file
-    """
-    raw_data = []
-    f = open(file_name, 'r')
-    lines = f.readlines()
-    lines = lines[1:]  # cuts out the line with column titles
-    f.close
-    return lines
-
-
-def process_data(raw_data):
-    """
-    takes data in the raw form and processes it into something we can
-    understand and manipulate, divided into relevent sublists or dictionaries
-    """
-    data = {}
-    for line in raw_data:
-        line = line.replace(', ', '-;')
-        line = line.split(',')
-        line[0] = line[0].replace('-;', ', ')
-        key = line.pop(0)                         # pop grabs one value from list
-        key = key.strip(string.punctuation)
-        if key in data:
-            data[key].append(line)
-        else:
-            data[key] = [line]
-    return data
+# def get_data(file_name = 'GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv'):
+#     """
+#     pulls data from web or, if it already is locally available, accesses
+#     the apropriate file
+#     """
+#     raw_data = []
+#     f = open(file_name, 'r')
+#     lines = f.readlines()
+#     lines = lines[1:]  # cuts out the line with column titles
+#     f.close
+#     return lines
+#
+#
+# def process_data(raw_data):
+#     """
+#     takes data in the raw form and processes it into something we can
+#     understand and manipulate, divided into relevent sublists or dictionaries
+#     """
+#     data = {}
+#     for line in raw_data:
+#         line = line.replace(', ', '-;')
+#         line = line.split(',')
+#         line[0] = line[0].replace('-;', ', ')
+#         key = line.pop(0)                         # pop grabs one value from list
+#         key = key.strip(string.punctuation)
+#         if key in data:
+#             data[key].append(line)
+#         else:
+#             data[key] = [line]
+#     return data
 
 
 def insert_data(Map, data):                                     # GRACEY
@@ -178,35 +186,36 @@ def visualize(data, category, flag = None):                    # NOAH
     # globe = insert_data(globe, data) # inserts data into the map object
     # currently using the -v flag because data is not yet inserted
     # temporary for testing until insert data is written, only adds location
-    locations = []
-    for key in data:
-        location = Location(key)
-        locations.append(location)
+    # locations = []
+    # for key in data:
+    #     location = Location(key)
+    #     locations.append(location)
     globe = Map(locations)
     return dict(data = globe.display(['-v']), layout = globe.layout)
     pass
 
-
-def make_code_dict(country_codes):
-    """
-    creates a dictionary mapping country names to their ISO ALPHA-3 codes
-    """
-    for line in country_codes:
-        line = line.replace(', ', '-;')
-        line = line.split(',')
-        line[0] = line[0].replace('-;', ', ')
-        if line[0] not in country_code_dict:
-            country_code_dict[line[0]] = line[2]
+#
+# def make_code_dict(country_codes):
+#     """
+#     creates a dictionary mapping country names to their ISO ALPHA-3 codes
+#     """
+#     for line in country_codes:
+#         line = line.replace(', ', '-;')
+#         line = line.split(',')
+#         line[0] = line[0].replace('-;', ', ')
+#         if line[0] not in country_code_dict:
+#             country_code_dict[line[0]] = line[2]
 
 
 import doctest
 # main and stuff goes here
 if __name__ == '__main__':
-    raw_data = get_data()
-    country_codes = get_data('country_codes.csv')
-    country_code_dict = {}
-    make_code_dict(country_codes)
-    data = process_data(raw_data)
-    print(data['Armenia, Republic of']) # display for debugging
+    # raw_data = get_data()
+    # country_codes = get_data('country_codes.csv')
+    # country_code_dict = {}
+    # make_code_dict(country_codes)
+    # data = process_data(raw_data)
+    print(data.irow(5))
+    # print(data['English short name lower case']) # display for debugging
     fig = visualize(data, 'test') # should eventually go in map.display() method
     plotly.offline.plot(fig, validate=False, filename='GlobalGenderEqualityMapping.html')
