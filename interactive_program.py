@@ -45,7 +45,6 @@ class Location:
         self.visual = visual
         self.info = info
 
-
 class Map():
     """
     contains all locations, is used to access everything conveniently.
@@ -78,12 +77,12 @@ class Map():
         others to be added as needed
         """
         # brings data up from inside locations, and uses country_code_dict to interpret names to locations
-        codes = []
-        names = []
-        for location in self.locations:
-            names.append(location.name)
-            if location.name in country_code_dict:
-                codes.append(country_code_dict[location.name])
+        #codes = []
+        #names = []
+        #for location in self.locations:
+        #    names.append(location.name)
+        #    if location.name in country_code_dict:
+        #        codes.append(country_code_dict[location.name])
         if '-v' in flags:
             return [ dict(
                     type = 'choropleth',
@@ -133,6 +132,7 @@ class Option_bar:
         # TODO
         pass
 
+
 data = pd.read_csv('./GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv')
 country_code_data = pd.read_csv('./country_codes.csv')
 data = country_code_data.merge(data, left_on='English short name lower case', right_on="Country Name")
@@ -169,13 +169,17 @@ data = country_code_data.merge(data, left_on='English short name lower case', ri
 #     return data
 
 
-def insert_data(Map, data):                                     # GRACEY
+def insert_data(globe, data):                                   # GRACEY
     """
     takes processed data and inserts it into the Map object, multiple levels
-    deep, identifying what data goes where by finding matching strings,
+    deep, identifying what data goes where by finding matching strings.
+    globe.location[n].data would contain data for n
     """
-    # TODO
-    pass
+    for location in map.location, find corresponding row. just performs operations, doesn't return.
+    globe = []
+    for i, row in data.iterrows():
+        Location(name=row.loc["Common name"], data=Dataset(data=row.loc['1990':'2013']))
+        globe = globe +
 
 
 def visualize(data, category, flag = None):                    # NOAH
@@ -190,9 +194,13 @@ def visualize(data, category, flag = None):                    # NOAH
     # for key in data:
     #     location = Location(key)
     #     locations.append(location)
+    locations = data['English short name lower case']
     globe = Map(locations)
+    globe = insert_data(globe,data)
     return dict(data = globe.display(['-v']), layout = globe.layout)
     pass
+
+print(locations)
 
 #
 # def make_code_dict(country_codes):
@@ -215,7 +223,7 @@ if __name__ == '__main__':
     # country_code_dict = {}
     # make_code_dict(country_codes)
     # data = process_data(raw_data)
-    print(data.irow(5))
+    # print(data.iloc[5])
     # print(data['English short name lower case']) # display for debugging
     fig = visualize(data, 'test') # should eventually go in map.display() method
     plotly.offline.plot(fig, validate=False, filename='GlobalGenderEqualityMapping.html')
