@@ -29,11 +29,22 @@ class Dataset:
     contains a set of data regarding a particular topic. self.data_num contains
     the number of keys in the dataset.
     """
-    def __init__(self, code = '', data = []):
+    def __init__(self, code = '', data = [], dtype = ''):
         self.code = code
-        self.data_num = len(data)
         self.data = data
+        self.dtype = dtype
 
+    def make_dict():
+        """
+        takes data and years and makes it into a dictionary
+        """
+        years = ['1990','1991','1992','1993','1994','1995','1996','1997','1998',\
+                 '1999','2000','2001','2002','2003','2004','2005','2006','2007',\
+                 '2008','2009','2010','2011','2012','2013']
+        d_new = {}
+        for i in range(len(years)):
+            d_new[years[i]] = self.data[i]
+        self.data = d_new
 
 class Location:
     """
@@ -44,6 +55,7 @@ class Location:
         self.name = name
         self.info = info
 
+
 class Map():
     """
     contains all locations, is used to access everything conveniently.
@@ -52,8 +64,42 @@ class Map():
     """
     def __init__(self, locations = None):
         self.locations = locations
-        self.optionbar = Option_bar(locations)
+        years = ['1990','1991','1992','1993','1994','1995','1996','1997','1998',\
+                 '1999','2000','2001','2002','2003','2004','2005','2006','2007',\
+                 '2008','2009','2010','2011','2012','2013']
+        year_buttons = []
+        for year in years:
+            year_buttons.append(dict(
+                args = [year],
+                label = year,
+                method = 'restyle'
+            ))
         self.layout = dict(
+            updatemenus = [
+                dict(
+                    x = .1,
+                    y = 1,
+                    buttons = list([
+                        dict(
+                            args = ['gdi'],
+                            label = 'Gender Development Index',
+                            method = 'restyle'
+                        ),
+                        dict(
+                            args = ['gei'],
+                            label = 'Gender Equality Index',
+                            method = 'restyle'
+                        )
+                    ]),
+                    yanchor = 'top'
+                ),
+                dict(
+                    x = .1,
+                    y = .95,
+                    buttons = list(year_buttons),
+                    yanchor = 'top'
+                )
+            ],
             title = 'Gender Equality Map',
             geo = dict(
                 showframe = False,
@@ -63,7 +109,6 @@ class Map():
                 )
             )
         )
-
 
     def display(self, flags=[]):
         """
@@ -78,11 +123,11 @@ class Map():
         # brings data up from inside locations
         codes = []
         names = []
-        gdi = []
+        index = []
         for location in self.locations:
            names.append(location.name)
            codes.append(location.info.code)
-           gdi.append(location.info.data[0])
+           index.append(location.info.data['2000'])
         if '-v' in flags:
             return [ dict(
                     type = 'choropleth',
@@ -98,79 +143,15 @@ class Map():
                 type = 'choropleth',
                 locations = codes, # uses ISO ALPHA-3 codes
                 text = names,
-                z = gdi,
+                z = index,
                 colorscale = [[0,"rgb(5, 10, 172)"],[0.35,"rgb(40, 60, 190)"],[0.5,"rgb(70, 100, 245)"],\
                     [0.6,"rgb(90, 120, 245)"],[0.7,"rgb(106, 137, 247)"],[1,"rgb(220, 220, 220)"]],
               ) ]
 
 
-    def quit(self, event):
-        """
-        closes map
-        """
-        # TODO
-        pass
 
 
-class Option_bar:
-    """
-    optionbar to be displayed, that allows interaction with map. Includes
-    checkboxes, and possibly other stuff telling map how to display its data
-    """
-    def __init__(self, locations):
-        """
-        taked data from inside locations to figure out what options it should
-        generate
-        """
-        # TODO
-        pass
-
-
-    def update(self, event):
-        """
-        updates display when the options selected on the option bar change
-        """
-        # TODO
-        pass
-
-
-data = pd.read_csv('./GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv')
-country_code_data = pd.read_csv('./country_codes.csv')
-data = country_code_data.merge(data, left_on='English short name lower case', right_on="Country Name")
-
-# def get_data(file_name = 'GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv'):
-#     """
-#     pulls data from web or, if it already is locally available, accesses
-#     the apropriate file
-#     """
-#     raw_data = []
-#     f = open(file_name, 'r')
-#     lines = f.readlines()
-#     lines = lines[1:]  # cuts out the line with column titles
-#     f.close
-#     return lines
-#
-#
-# def process_data(raw_data):
-#     """
-#     takes data in the raw form and processes it into something we can
-#     understand and manipulate, divided into relevent sublists or dictionaries
-#     """
-#     data = {}
-#     for line in raw_data:
-#         line = line.replace(', ', '-;')
-#         line = line.split(',')
-#         line[0] = line[0].replace('-;', ', ')
-#         key = line.pop(0)                         # pop grabs one value from list
-#         key = key.strip(string.punctuation)
-#         if key in data:
-#             data[key].append(line)
-#         else:
-#             data[key] = [line]
-#     return data
-
-
-def insert_data(globe, data):                                   # GRACEY
+def insert_data(globe, data):
     """
     takes processed data and inserts it into the Map object, multiple levels
     deep, identifying what data goes where by finding matching strings.
@@ -181,11 +162,12 @@ def insert_data(globe, data):                                   # GRACEY
     for i, row in data.iterrows():
         locale = Location(name=row.loc['English short name lower case'], \
                           info = Dataset(code = row.loc['Alpha-3 code'], \
-                                         data = row.loc['1990':'2013']))
+                                         data = row.loc['1990':'2013'], \
+                                         dtype = row.loc['Indicator Code'] ))
+        locale.info.make_dict
         globe.locations.append(locale)
 
-
-def visualize(data, category, flag = None):                    # NOAH
+def visualize(data, category, flag = None):
     """
     takes the processed data and displays the part of the data that is
     in the requested category. Additional options are available with a flag
@@ -200,14 +182,9 @@ def visualize(data, category, flag = None):                    # NOAH
 
 
 import doctest
-# main and stuff goes here
 if __name__ == '__main__':
-    # raw_data = get_data()
-    # country_codes = get_data('country_codes.csv')
-    # country_code_dict = {}
-    # make_code_dict(country_codes)
-    # data = process_data(raw_data)
-    # print(data.iloc[5])
-    # print(data['English short name lower case']) # display for debugging
+    data = pd.read_csv('./GENDER_EQUALITY_01-17-2017 15-09-24-32_timeSeries.csv')
+    country_code_data = pd.read_csv('./country_codes.csv')
+    data = country_code_data.merge(data, left_on='English short name lower case', right_on="Country Name")
     fig = visualize(data, 'test') # should eventually go in map.display() method
     plotly.offline.plot(fig, validate=False, filename='GlobalGenderEqualityMapping.html')
