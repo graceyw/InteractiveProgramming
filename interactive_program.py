@@ -29,8 +29,8 @@ class Dataset:
     contains a set of data regarding a particular topic. self.data_num contains
     the number of keys in the dataset.
     """
-    def __init__(self, name = 'Default', data = {}):
-        self.name = name
+    def __init__(self, code = '', data = []):
+        self.code = code
         self.data_num = len(data)
         self.data = data
 
@@ -40,9 +40,8 @@ class Location:
     contains the information describing a country or locale, specifically the
     information from imf.org, and the graphical description of the location
     """
-    def __init__(self, name = 'Default', visual = None, info = Dataset()):
+    def __init__(self, name = 'Default', info = Dataset()):
         self.name = name
-        self.visual = visual
         self.info = info
 
 class Map():
@@ -66,7 +65,7 @@ class Map():
         )
 
 
-    def display(self, flags=None):
+    def display(self, flags=[]):
         """
         procedure to display the country on a map, and what data to display.
         flags include:
@@ -76,19 +75,21 @@ class Map():
         the default is based on the option bar
         others to be added as needed
         """
-        # brings data up from inside locations, and uses country_code_dict to interpret names to locations
-        #codes = []
-        #names = []
-        #for location in self.locations:
-        #    names.append(location.name)
-        #    if location.name in country_code_dict:
-        #        codes.append(country_code_dict[location.name])
+        # brings data up from inside locations
+        codes = []
+        names = []
+        gdi = []
+        for location in self.locations:
+           names.append(location.name)
+           codes.append(location.info.code)
+           gdi.append(location.info.data[0])
         if '-v' in flags:
             return [ dict(
                     type = 'choropleth',
                     locations = codes, # uses ISO ALPHA-3 codes
                     text = names,
-                    z = [21.71],
+                    z = [1],
+                    # colorscale taken from online example
                     colorscale = [[0,"rgb(5, 10, 172)"],[0.35,"rgb(40, 60, 190)"],[0.5,"rgb(70, 100, 245)"],\
                         [0.6,"rgb(90, 120, 245)"],[0.7,"rgb(106, 137, 247)"],[1,"rgb(220, 220, 220)"]],
                   ) ]
@@ -97,7 +98,7 @@ class Map():
                 type = 'choropleth',
                 locations = codes, # uses ISO ALPHA-3 codes
                 text = names,
-                z = [21.71], # will be replaced by something from location.info
+                z = gdi,
                 colorscale = [[0,"rgb(5, 10, 172)"],[0.35,"rgb(40, 60, 190)"],[0.5,"rgb(70, 100, 245)"],\
                     [0.6,"rgb(90, 120, 245)"],[0.7,"rgb(106, 137, 247)"],[1,"rgb(220, 220, 220)"]],
               ) ]
@@ -175,11 +176,13 @@ def insert_data(globe, data):                                   # GRACEY
     deep, identifying what data goes where by finding matching strings.
     globe.location[n].data would contain data for n
     """
-    for location in map.location, find corresponding row. just performs operations, doesn't return.
-    globe = []
+    # for location in map.location, find corresponding row. just performs operations, doesn't return.
+    globe.locations = []
     for i, row in data.iterrows():
-        Location(name=row.loc["Common name"], data=Dataset(data=row.loc['1990':'2013']))
-        globe = globe +
+        locale = Location(name=row.loc['English short name lower case'], \
+                          info = Dataset(code = row.loc['Alpha-3 code'], \
+                                         data = row.loc['1990':'2013']))
+        globe.locations.append(locale)
 
 
 def visualize(data, category, flag = None):                    # NOAH
@@ -188,31 +191,12 @@ def visualize(data, category, flag = None):                    # NOAH
     in the requested category. Additional options are available with a flag
     """
     # globe = insert_data(globe, data) # inserts data into the map object
-    # currently using the -v flag because data is not yet inserted
-    # temporary for testing until insert data is written, only adds location
-    # locations = []
-    # for key in data:
-    #     location = Location(key)
-    #     locations.append(location)
     locations = data['English short name lower case']
-    globe = Map(locations)
-    globe = insert_data(globe,data)
-    return dict(data = globe.display(['-v']), layout = globe.layout)
-    pass
+    globe = Map()
+    insert_data(globe,data)
+    return dict(data = globe.display(), layout = globe.layout)
 
-print(locations)
 
-#
-# def make_code_dict(country_codes):
-#     """
-#     creates a dictionary mapping country names to their ISO ALPHA-3 codes
-#     """
-#     for line in country_codes:
-#         line = line.replace(', ', '-;')
-#         line = line.split(',')
-#         line[0] = line[0].replace('-;', ', ')
-#         if line[0] not in country_code_dict:
-#             country_code_dict[line[0]] = line[2]
 
 
 import doctest
