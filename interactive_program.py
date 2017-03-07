@@ -197,8 +197,6 @@ def visualize(data, category, flag = None):                    # NOAH
     return dict(data = globe.display(), layout = globe.layout)
 
 
-
-
 import doctest
 # main and stuff goes here
 if __name__ == '__main__':
