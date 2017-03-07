@@ -16,7 +16,6 @@ NOTE: THIS FILE IS NOT INTENDED FOR GRADING
 """
 
 import plotly
-import pandas as pd
 
 
 globe = [ dict(
