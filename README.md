@@ -6,22 +6,24 @@
 Project Proposal: https://docs.google.com/document/d/13pr2W9u3S5DBG2-iYA_RqwFVpTL5CEx4wzUfIGuZatg/edit?usp=sharing
 
 ## Project Overview
-We worked with data from the International Monetary Fund and used data visualization tools in Python to create a map info-graphic that presents information on global gender inequality over time. The main data points presented in the info-graphics are each country’s “Gender Inequality Index” and "Gender Development Index" over time. These measurements were created by the United Nations Development Programme. The Inequality Index describes the loss of achievement within a country due to gender disparity and is calculated using evidence along three axes: reproductive health, educational empowerment, and labor market participation. The Development Index is . Each country’s index (a number between 0 and 1, with a higher number meaning more inequality and therefore more loss) is calculated  Users can interact with the info-graphic by selecting the year they'd like to see.
+We worked with data from the International Monetary Fund and used data visualization tools in Python to create two map info-graphics that present information on global gender equality over time. The main data points presented in the info-graphics are each country’s “Gender Development Index” and "Gender Inequality Index" over time, both of which are measurements initiated by the United Nations Development Programme.
 
+The Development Index was introduced as a gender-focused part of the Human Development Index and addresses gender gaps in life expectancy, education and income. A higher index equates to a greater balance between genders. The Inequality Index was introduced in 2010 to account for some of the shortcomings of the Development Index. It describes the loss of achievement within a country due to gender disparity and is calculated using evidence along three axes: reproductive health, educational empowerment, and labor market participation. Each country’s Inequality Index is a number between 0 and 1, with a higher number meaning more inequality and therefore more loss due to gender.
 
-## Results [~2-3 paragraphs + figures/examples]
+## Results
 
-Below are screenshots of the 2 maps we created.
-![Alt text](/home/gracey/InteractiveProgramming/InequalityNorway1995.png)
+Below are screenshots of the two maps we created. One displays the Development Index and the other the Inequality Index. Users can interact with the maps by selecting the year they'd like to see and hovering over the country to see the index for that location during that time frame.
+
+![alt text](/home/gracey/InteractiveProgramming/InequalityNorway1995.png)
 Figure 1: The Gender Inequality Index Map, currently showing Norway's index in 1995.
 
-![Alt text](/home/gracey/InteractiveProgramming/InequalityNorway2010.png)
+![alt text](/home/gracey/InteractiveProgramming/InequalityNorway2010.png)
 Figure 2: The Gender Inequality Index Map, currently showing Norway's index in 2010.
 
-![Alt text](/home/gracey/InteractiveProgramming/DevelopmentIndia1995.png)
+![alt text](/home/gracey/InteractiveProgramming/DevelopmentIndia1995.png)
 Figure 3: The Gender Development Index Map, currently showing India's index in 1995.
 
-![Alt text](/home/gracey/InteractiveProgramming/DevelopmentIndia2010.png)
+![alt text](/home/gracey/InteractiveProgramming/DevelopmentIndia2010.png)
 Figure 4: The Gender Development Index Map, currently showing India's index in 2010.
 
 
@@ -31,21 +33,13 @@ Our program is structured around three classes. The highest level class is the M
 
 One key design decision we made was the format in which we stored our data. We considered tuples, lists, dictionaries, and a number of nested structures. We eventually decided to use a list inside a dictionary. We came to the conclusion that such a format was best suited for our program, because it interfaced with the plotly library relatively conveniently.
 
-![alt text](https://github.com/graceyw/InteractiveProgramming/blob/master/UML_diagram.png "")
+![alt text](/home/gracey/InteractiveProgramming/UML_diagram.png)
+Figure 5: UML Class Diagram.
 
-## Reflection [~2 paragraphs]
+## Reflection
 
-From a process point of view, what went well? What could you improve? Other possible reflection topics: Was your project appropriately scoped? Did you have a good plan for unit testing? How will you use what you learned going forward? What do you wish you knew before you started that would have helped you succeed?
+We were successful in scaffolding out the program in the beginning, but could have been more successful at scoping our time out as well; the workload definitely increased as the project moved forward. In the end however, both partners spent approximately the amount of time we expected to on the project.
 
-Also discuss your team process in your reflection. How did you plan to divide the work (e.g. split by class, always pair program together, etc.) and how did it actually happen? Were there any issues that arose while working together, and how did you address them? What would you do differently next time?
+We knew from the start that a main struggle throughout the project would be our differences in levels of experience. We had planned to divide the work evenly, but the coding work ended up skewed towards the more experienced partner. Because both members' learning goals involved learning to work with a partner who's at a different level, we hypothesize pair programming might have supported a more effective learning experience for both partners. If we did this again, we might try more pair programming, or at least ensure that both partners have a full understanding of the program we're trying to write *before* we divide up the work.
 
-We were successful in building a scaffolded python file in the beginning, but we didn't plan quite as well on the time scale
-Both partners spent approximately the amount of time we expected to on the project.
-
-We knew from the start that a main struggle throughout the project would be our difference in levels of experience. We had planned to divide the work evenly, but the coding work ended up skewed towards the more experienced partner. Because both members' learning goals involved learning to work with a partner who's at a different level, we hypothesize pair programming might have supported a more effective learning experience for both partners. If we did this again, we might try more pair programming, or at least ensure that both partners have a full understanding of the program we're trying to write *before* we divide up the work.
-
-
-*Italicize*
-**Bold**
-
-ctrl shift M allows preview of markdown files
+With regards to design, we learned about the Model-View-Controller framework in the final stages of our project. We decided to finish building using our original approach, but we recognize that the MVC structure might have been a very successful approach to this project and plan on keeping it in mind for potentially cleaner implementations in future projects.

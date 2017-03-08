@@ -20,7 +20,6 @@ import string
 import plotly
 import pandas as pd
 import colorlover as cl
-
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 init_notebook_mode(connected=True)
 
@@ -167,8 +166,6 @@ class Map():
             return data
 
 
-
-
 def insert_data(globe, data, index):
     """
     takes processed data and inserts it into the Map object, multiple levels
@@ -196,8 +193,6 @@ def visualize(data, category, flag = None):
     globe = Map()
     insert_data(globe,data,category)
     return dict(data = globe.display(), layout = globe.get_layout())
-
-
 
 
 import doctest
