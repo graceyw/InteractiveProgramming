@@ -14,16 +14,17 @@ The Development Index was introduced as a gender-focused part of the Human Devel
 
 Below are screenshots of the two maps we created. One displays the Development Index and the other the Inequality Index. Users can interact with the maps by selecting the year they'd like to see and hovering over the country to see the index for that location during that time frame.
 
-![alt text](/home/gracey/InteractiveProgramming/InequalityNorway1995.png)
+![alt text](https://github.com/graceyw/InteractiveProgramming/blob/master/InequalityNorway1995.png "")
 Figure 1: The Gender Inequality Index Map, currently showing Norway's index in 1995.
 
-![alt text](/home/gracey/InteractiveProgramming/InequalityNorway2010.png)
+![alt text](https://github.com/graceyw/InteractiveProgramming/blob/master/InequalityNorway2010.png "")
+
 Figure 2: The Gender Inequality Index Map, currently showing Norway's index in 2010.
 
-![alt text](/home/gracey/InteractiveProgramming/DevelopmentIndia1995.png)
+![alt text](https://github.com/graceyw/InteractiveProgramming/blob/master/DevelopmentIndia1995.png "")
 Figure 3: The Gender Development Index Map, currently showing India's index in 1995.
 
-![alt text](/home/gracey/InteractiveProgramming/DevelopmentIndia2010.png)
+![alt text](https://github.com/graceyw/InteractiveProgramming/blob/master/DevelopmentIndia2010.png "")
 Figure 4: The Gender Development Index Map, currently showing India's index in 2010.
 
 
@@ -33,7 +34,7 @@ Our program is structured around three classes. The highest level class is the M
 
 One key design decision we made was the format in which we stored our data. We considered tuples, lists, dictionaries, and a number of nested structures. We eventually decided to use a list inside a dictionary. We came to the conclusion that such a format was best suited for our program, because it interfaced with the plotly library relatively conveniently.
 
-![alt text](/home/gracey/InteractiveProgramming/UML_diagram.png)
+![alt text](https://github.com/graceyw/InteractiveProgramming/blob/master/UML_diagram.png "")
 Figure 5: UML Class Diagram.
 
 ## Reflection
