@@ -25,9 +25,13 @@ Figure 3: The Gender Development Index Map, currently showing India's index in 1
 Figure 4: The Gender Development Index Map, currently showing India's index in 2010.
 
 
-## Implementation [~2-3 paragraphs + UML diagram]
+## Implementation
 
-Describe your implementation at a system architecture level. Include a UML class diagram, and talk about the major components, algorithms, data structures and how they fit together. You should also discuss at least one design decision where you had to choose between multiple alternatives, and explain why you made the choice you did.
+Our program is structured around three classes. The highest level class is the Map() class. Below that is a Location() class, and finally a Dataset() class. The Map object contains a list of Location objects, each of which contains a Dataset object. The Map object is contains the state of the program, and all the information that needs to be passed to plotly in order to render our maps. Each Location object holds the data needed to render a specific country. Each Dataset object holds a particular set of data, and information identifying the type of information stored.
+
+One key design decision we made was the format in which we stored our data. We considered tuples, lists, dictionaries, and a number of nested structures. We eventually decided to use a list inside a dictionary. We came to the conclusion that such a format was best suited for our program, because it interfaced with the plotly library relatively conveniently.
+
+![alt text](https://github.com/graceyw/InteractiveProgramming/blob/master/UML_diagram.png "")
 
 ## Reflection [~2 paragraphs]
 
