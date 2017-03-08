@@ -5,10 +5,31 @@
 
 Project Proposal: https://docs.google.com/document/d/13pr2W9u3S5DBG2-iYA_RqwFVpTL5CEx4wzUfIGuZatg/edit?usp=sharing
 
-## Abstract
-We worked with data from the International Monetary Fund and data visualization tools in Python, to create a map info-graphic that presents information on global gender inequality over time. The main data point presented in the info-graphic is each country’s “Gender Inequality Index”. This measurement, initiated in 2010 by the United Nations Development Programme, describes the loss of achievement within a country due to gender disparity. Each country’s index is calculated using evidence along three axes: reproductive health, educational empowerment, and labor market participation. Users can interact with the info-graphic through ____
+## Project Overview
+We worked with data from the International Monetary Fund and data visualization tools in Python, to create a map info-graphic that presents information on global gender inequality over time. The main data points presented in the info-graphic are each country’s “Gender Inequality Index” and "Gender Development Index". These measurements, initiated in 2010 by the United Nations Development Programme, describes the loss of achievement within a country due to gender disparity. Each country’s index (a number between 0 and 1, with a higher number meaning more inequality and therefore more loss) is calculated using evidence along three axes: reproductive health, educational empowerment, and labor market participation. Users can interact with the info-graphic by selecting the year they'd like to see.
 
-*Italisize*
+
+## Results [~2-3 paragraphs + figures/examples]
+
+Present what you accomplished. This will be different for each project, but screenshots are likely to be helpful.
+
+## Implementation [~2-3 paragraphs + UML diagram]
+
+Describe your implementation at a system architecture level. Include a UML class diagram, and talk about the major components, algorithms, data structures and how they fit together. You should also discuss at least one design decision where you had to choose between multiple alternatives, and explain why you made the choice you did.
+
+## Reflection [~2 paragraphs]
+
+From a process point of view, what went well? What could you improve? Other possible reflection topics: Was your project appropriately scoped? Did you have a good plan for unit testing? How will you use what you learned going forward? What do you wish you knew before you started that would have helped you succeed?
+
+Also discuss your team process in your reflection. How did you plan to divide the work (e.g. split by class, always pair program together, etc.) and how did it actually happen? Were there any issues that arose while working together, and how did you address them? What would you do differently next time?
+
+We were successful in building a scaffolded python file in the beginning, but we didn't plan quite as well on the time scale
+Both partners spent approximately the amount of time we expected to on the project.
+
+We knew from the start that a main struggle throughout the project would be our difference in levels of experience. We had planned to divide the work evenly, but the coding work ended up skewed towards the more experienced partner. Because both members' learning goals involved learning to work with a partner who's at a different level, we hypothesize pair programming might have supported a more effective learning experience for both partners. If we did this again, we might try more pair programming, or at least ensure that both partners have a full understanding of the program we're trying to write *before* we divide up the work.
+
+
+*Italicize*
 **Bold**
 
-ctrl shift M allows preview of markdown file
+ctrl shift M allows preview of markdown files
