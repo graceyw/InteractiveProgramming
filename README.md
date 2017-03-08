@@ -6,12 +6,24 @@
 Project Proposal: https://docs.google.com/document/d/13pr2W9u3S5DBG2-iYA_RqwFVpTL5CEx4wzUfIGuZatg/edit?usp=sharing
 
 ## Project Overview
-We worked with data from the International Monetary Fund and data visualization tools in Python, to create a map info-graphic that presents information on global gender inequality over time. The main data points presented in the info-graphic are each country’s “Gender Inequality Index” and "Gender Development Index". These measurements, initiated in 2010 by the United Nations Development Programme, describes the loss of achievement within a country due to gender disparity. Each country’s index (a number between 0 and 1, with a higher number meaning more inequality and therefore more loss) is calculated using evidence along three axes: reproductive health, educational empowerment, and labor market participation. Users can interact with the info-graphic by selecting the year they'd like to see.
+We worked with data from the International Monetary Fund and used data visualization tools in Python to create a map info-graphic that presents information on global gender inequality over time. The main data points presented in the info-graphics are each country’s “Gender Inequality Index” and "Gender Development Index" over time. These measurements were created by the United Nations Development Programme. The Inequality Index describes the loss of achievement within a country due to gender disparity and is calculated using evidence along three axes: reproductive health, educational empowerment, and labor market participation. The Development Index is . Each country’s index (a number between 0 and 1, with a higher number meaning more inequality and therefore more loss) is calculated  Users can interact with the info-graphic by selecting the year they'd like to see.
 
 
 ## Results [~2-3 paragraphs + figures/examples]
 
-Present what you accomplished. This will be different for each project, but screenshots are likely to be helpful.
+Below are screenshots of the 2 maps we created.
+![Alt text](/home/gracey/InteractiveProgramming/InequalityNorway1995.png)
+Figure 1: The Gender Inequality Index Map, currently showing Norway's index in 1995.
+
+![Alt text](/home/gracey/InteractiveProgramming/InequalityNorway2010.png)
+Figure 2: The Gender Inequality Index Map, currently showing Norway's index in 2010.
+
+![Alt text](/home/gracey/InteractiveProgramming/DevelopmentIndia1995.png)
+Figure 3: The Gender Development Index Map, currently showing India's index in 1995.
+
+![Alt text](/home/gracey/InteractiveProgramming/DevelopmentIndia2010.png)
+Figure 4: The Gender Development Index Map, currently showing India's index in 2010.
+
 
 ## Implementation [~2-3 paragraphs + UML diagram]
 
