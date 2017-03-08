@@ -19,6 +19,8 @@ Our program is structured around three classes. The highest level class is the M
 
 One key design decision we made was the format in which we stored our data. We considered tuples, lists, dictionaries, and a number of nested structures. We eventually decided to use a list inside a dictionary. We came to the conclusion that such a format was best suited for our program, because it interfaced with the plotly library relatively conveniently.
 
+![alt text](https://github.com/graceyw/InteractiveProgramming/blob/master/UML_diagram.png "")
+
 ## Reflection [~2 paragraphs]
 
 From a process point of view, what went well? What could you improve? Other possible reflection topics: Was your project appropriately scoped? Did you have a good plan for unit testing? How will you use what you learned going forward? What do you wish you knew before you started that would have helped you succeed?
