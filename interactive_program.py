@@ -79,12 +79,24 @@ class Map():
                     #if location.info.dtype == dtype:
                     index.append(location.info.data[year])
             indexes[year] = index
-        for year in years:
+        for i in range(len(years)):
+            blank = [False] * len(years) * 2
+            blank.pop(i*2)
+            blank.pop(i*2)
+            blank.insert(i*2, True)
+            blank.insert(i*2, False)
             year_buttons.append(dict(
-                args = ['z', indexes[year]],
-                label = year,
+                args = ['visible', blank],
+                label = years[i],
                 method = 'restyle'
             ))
+        gei = []
+        gdi = []
+        for year in years:
+            gei.append(True)
+            gdi.append(False)
+            gdi.append(False)
+            gei.append(True)
         layout = dict(
             updatemenus = [
                 dict(
@@ -92,12 +104,12 @@ class Map():
                     y = 1,
                     buttons = list([
                         dict(
-                            args = ['itype', 'gdi'],
+                            args = ['visible', gdi],
                             label = 'Gender Development Index',
                             method = 'restyle'
                         ),
                         dict(
-                            args = ['itype', 'gei'],
+                            args = ['visible', gei],
                             label = 'Gender Equality Index',
                             method = 'restyle'
                         )
@@ -139,8 +151,17 @@ class Map():
                  '1999','2000','2001','2002','2003','2004','2005','2006','2007',\
                  '2008','2009','2010','2011','2012','2013']
         for location in self.locations:
-           names.append(location.name) # edit to add more data
-           codes.append(location.info.code)
+            names.append(location.name) # edit to add more data
+            codes.append(location.info.code)
+        indexes = {}
+        dtypes = ['gdi','gei']
+        for year in years:
+            index = []
+            for dtype in dtypes:
+                for location in self.locations:
+                    #if location.info.dtype == dtype:
+                    index.append(location.info.data[year])
+                indexes[year] = index
         if '-v' in flags:
             return [ dict(
                     type = 'choropleth',
@@ -152,15 +173,19 @@ class Map():
                         [0.6,"rgb(90, 120, 245)"],[0.7,"rgb(106, 137, 247)"],[1,"rgb(220, 220, 220)"]],
                   ) ]
         else:
-            return [ dict(
-                type = 'choropleth',
-                locations = codes, # uses ISO ALPHA-3 codes
-                text = names,
-                itype = 'gdi',
-                z = [1],
-                colorscale = [[0,"rgb(5, 10, 172)"],[0.35,"rgb(40, 60, 190)"],[0.5,"rgb(70, 100, 245)"],\
-                    [0.6,"rgb(90, 120, 245)"],[0.7,"rgb(106, 137, 247)"],[1,"rgb(220, 220, 220)"]],
-              ) ]
+            data = []
+            for year in years:
+                for dtype in dtypes:
+                    data.append(dict(
+                    type = 'choropleth',
+                    locations = codes, # uses ISO ALPHA-3 codes
+                    text = names,
+                    itype = dtype,
+                    z = indexes[year],
+                    colorscale = [[0,"rgb(5, 10, 172)"],[0.35,"rgb(40, 60, 190)"],[0.5,"rgb(70, 100, 245)"],\
+                        [0.6,"rgb(90, 120, 245)"],[0.7,"rgb(106, 137, 247)"],[1,"rgb(220, 220, 220)"]],
+                    ))
+            return data
 
 
 
